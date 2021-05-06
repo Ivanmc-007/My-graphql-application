@@ -1,0 +1,24 @@
+type Vehicle {
+    id: ID!,
+    type: String,
+    modelCode: String,
+    brandName: String,
+    owner: Owner
+}
+
+input VehicleInput {
+    id: ID,
+    type: String,
+    modelCode: String,
+    brandName: String,
+}
+
+extend type Query {
+    getAllVehicles:[Vehicle]
+    getVehicleById(id: ID):Vehicle
+    vehiclesByType(type: String):[Vehicle]
+}
+
+extend type Mutation {
+    createVehicle(type: String!, modelCode: String!, brandName: String):Vehicle
+}

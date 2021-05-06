@@ -1,0 +1,23 @@
+type Owner {
+    id: ID!
+    login: String
+    email: String
+    vehicles: [Vehicle]
+}
+
+input OwnerInput {
+    id: ID
+    login: String!
+    email: String!
+    vehicles: [VehicleInput]
+}
+
+extend type Query {
+    getOwners(count: Int):[Owner]
+    getOwnerById(id: ID):Owner
+}
+
+extend type Mutation {
+    createOwner(owner: OwnerInput):Owner
+}
+

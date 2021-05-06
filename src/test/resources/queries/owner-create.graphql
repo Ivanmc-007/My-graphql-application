@@ -1,0 +1,22 @@
+ mutation {
+   createOwner(owner: {
+     login:"john-login"
+     email:"john-john@mail.com"
+   	vehicles: [
+       {
+       type: "bike"
+       modelCode: "jump21"
+       brandName: "A"
+       # launchDate: "2017-06-06"
+       }
+       {
+       type: "car"
+       modelCode: "ford"
+       brandName: "Mondeo"
+       # launchDate: "2017-06-06"
+       }
+   	]
+   }){
+     id
+   }
+ }

@@ -1,0 +1,13 @@
+query {
+    getOwnerById(id:1) {
+        id
+        login
+        email
+        vehicles {
+            id
+            type
+            modelCode
+            brandName
+        }
+    }
+}
