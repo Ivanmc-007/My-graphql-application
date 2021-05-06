@@ -2,6 +2,7 @@ package com.ivan.mygraphql.service;
 
 import com.ivan.mygraphql.model.entity.Owner;
 import com.ivan.mygraphql.repository.OwnerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,13 +11,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class OwnerService {
 
     private final OwnerRepository ownerRepository;
-
-    public OwnerService(OwnerRepository ownerRepository) {
-        this.ownerRepository = ownerRepository;
-    }
 
     @Transactional(readOnly = true)
     public List<Owner> getAll() {

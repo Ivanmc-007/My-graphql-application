@@ -3,6 +3,7 @@ package com.ivan.mygraphql.service;
 import com.ivan.mygraphql.model.entity.Owner;
 import com.ivan.mygraphql.model.entity.Vehicle;
 import com.ivan.mygraphql.repository.VehicleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,13 +13,10 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class VehicleService {
 
     private final VehicleRepository vehicleRepository;
-
-    public VehicleService(final VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository ;
-    }
 
     @Transactional(rollbackFor = Exception.class)
     public Vehicle createVehicle(final String type,final String modelCode, final String brandName) {

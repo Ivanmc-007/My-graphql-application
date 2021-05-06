@@ -1,6 +1,7 @@
 package com.ivan.mygraphql.controller;
 
 import com.ivan.mygraphql.exception.ClientNotFoundException;
+import com.ivan.mygraphql.mapper.ClientMapper;
 import com.ivan.mygraphql.model.dto.ClientDto;
 import com.ivan.mygraphql.model.entity.Client;
 import com.ivan.mygraphql.service.ClientService;
@@ -9,24 +10,22 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/clients")
+@RequiredArgsConstructor
 @Log4j2
 public class ClientRestController {
 
     private final ClientService clientService;
 
-    private final ModelMapper modelMapper;
-
-    public ClientRestController(ClientService clientService, ModelMapper modelMapper) {
-        this.clientService = clientService;
-        this.modelMapper = modelMapper;
-    }
+    private final ClientMapper clientMapper;
 
     @Operation(summary = "Get a client by its id")
     @ApiResponses(value = {
@@ -56,7 +55,7 @@ public class ClientRestController {
     @Transactional(rollbackFor = { Exception.class })
     public Client saveClient(@RequestBody ClientDto clientDto) {
         log.info("TRYING TO SAVE NEW " + clientDto);
-        Client client = convertToEntity(clientDto);
+        Client client = clientMapper.toEntity(clientDto);
         return clientService.save(client);
     }
 
@@ -75,8 +74,10 @@ public class ClientRestController {
         return clientService.save(oldClient);
     }
 
-    private Client convertToEntity(ClientDto clientDto) {
-        return modelMapper.map(clientDto, Client.class);
+    @GetMapping
+    @Transactional(readOnly = true)
+    public List<Client> getAll() {
+        return clientService.getAll();
     }
 
 }

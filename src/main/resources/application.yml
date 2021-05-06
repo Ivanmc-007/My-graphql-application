@@ -18,3 +18,6 @@ springdoc:
     path: /api/swagger-ui.html
 # for sort the API paths in order of their HTTP methods
 # springdoc.swagger-ui.operationsSorter=method
+
+server:
+  port: 8090
